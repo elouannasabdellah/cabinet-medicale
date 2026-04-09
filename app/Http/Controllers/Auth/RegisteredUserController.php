@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\User;
+use App\Models\Patient;
+use Illuminate\Support\Facades\DB; // Pour sécuriser la double insertion
+
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -36,16 +40,31 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+    // Utilisation d'une Transaction DB pour être sûr que soit tout s'enregistre, soit rien
+    return DB::transaction(function () use ($request) {
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'patient', // Défini par défaut ici
+        ]);
+
+        // 2. Créer automatiquement le patient lié
+        Patient::create([
+            'user_id' => $user->id,
+            // Tu peux laisser les autres champs vides au début
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
-    }
+        // return redirect(RouteServiceProvider::HOME);
+        return redirect(route('patient.dashboard', absolute: false));
+
+        });
+
+      }
+    
 }

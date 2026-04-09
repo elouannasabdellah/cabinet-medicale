@@ -94,7 +94,7 @@
 </style>
 <body>
 
-    @yield('content')
+    <?php echo $__env->yieldContent('content'); ?>
 
 
     <script>
@@ -116,4 +116,4 @@
     <!-- Fullcalendar -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
 </body>
-</html>
+</html><?php /**PATH D:\LARAVEL\TODO\todo-list\resources\views/layouts/app.blade.php ENDPATH**/ ?>

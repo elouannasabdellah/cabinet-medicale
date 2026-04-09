@@ -1,6 +1,6 @@
-@extends('layouts.app')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <style>
     /* Correction pour les composants Breeze sans Tailwind */
     .max-w-xl { max-width: 36rem; }
@@ -63,7 +63,7 @@
         <h2 class="fw-bold text-dark display-6">Mon Profil</h2>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-decoration-none">Tableau de bord</a></li>
+                <li class="breadcrumb-item"><a href="<?php echo e(route('dashboard')); ?>" class="text-decoration-none">Tableau de bord</a></li>
                 <li class="breadcrumb-item active">Paramètres</li>
             </ol>
         </nav>
@@ -75,7 +75,7 @@
             <div class="card shadow-sm border-0 mb-4" style="border-radius: 12px; border-top: 4px solid #0d6efd !important;">
                 <div class="card-body p-4 p-md-5">
                     <div class="max-w-xl">
-                        @include('profile.partials.update-profile-information-form')
+                        <?php echo $__env->make('profile.partials.update-profile-information-form', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     </div>
                 </div>
             </div>
@@ -83,7 +83,7 @@
             <div class="card shadow-sm border-0 mb-4" style="border-radius: 12px; border-top: 4px solid #6c757d !important;">
                 <div class="card-body p-4 p-md-5">
                     <div class="max-w-xl">
-                        @include('profile.partials.update-password-form')
+                        <?php echo $__env->make('profile.partials.update-password-form', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     </div>
                 </div>
             </div>
@@ -91,7 +91,7 @@
             <div class="card shadow-sm border-0 mb-5" style="border-radius: 12px; border-left: 5px solid #dc3545 !important; background-color: #fff8f8;">
                 <div class="card-body p-4 p-md-5">
                     <div class="max-w-xl">
-                        @include('profile.partials.delete-user-form')
+                        <?php echo $__env->make('profile.partials.delete-user-form', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     </div>
                 </div>
             </div>
@@ -99,4 +99,5 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\LARAVEL\TODO\todo-list\resources\views/profile/edit.blade.php ENDPATH**/ ?>

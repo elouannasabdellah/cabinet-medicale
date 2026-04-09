@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,3 +20,4 @@
             <h1>uca </h1>
     </body>
 </html>
+<?php /**PATH D:\LARAVEL\TODO\todo-list\resources\views/welcome.blade.php ENDPATH**/ ?>
