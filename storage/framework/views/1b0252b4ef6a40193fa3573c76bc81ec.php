@@ -50,4 +50,6 @@
         </div>
     </body>
 </html>
+
+
 <?php /**PATH D:\LARAVEL\TODO\todo-list\resources\views/layouts/guest.blade.php ENDPATH**/ ?>

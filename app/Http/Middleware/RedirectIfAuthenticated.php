@@ -21,6 +21,13 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                $role = Auth::user()->role;
+
+                    // Rediriger selon le rôle même si l'utilisateur est déjà loggé
+                if ($role === 'admin') return redirect()->route('admin.dashboard');
+                if ($role === 'doctor') return redirect()->route('doctor.dashboard');
+                if ($role === 'patient') return redirect()->route('patient.dashboard');
+
                 return redirect(RouteServiceProvider::HOME);
             }
         }

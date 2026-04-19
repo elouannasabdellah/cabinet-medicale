@@ -20,7 +20,7 @@ class AvailabilityController extends Controller
         
         // On récupère les dispos existantes pour les afficher dans le formulaire
         // On trie par date pour avoir une cohérence
-        $currentAvailabilities = Availability::where('doctor_id', 5)
+        $currentAvailabilities = Availability::where('doctor_id', auth()->user()->doctor->id)
             // ->where('available_date', '>=', now()->toDateString())
             ->get()
            ->keyBy(function($item) {
@@ -35,7 +35,9 @@ class AvailabilityController extends Controller
      */
     public function store(Request $request)
     {
-        $doctorId = 5;
+       
+        // 1. On récupère l'ID du docteur connecté (indispensable !)
+            $doctor = auth()->user()->doctor;
 
         // Traduction pour que Carbon comprenne les jours de ta vue Blade
         $daysMapping = [
@@ -62,10 +64,10 @@ class AvailabilityController extends Controller
                 // Exemple : Si on est mercredi et qu'on traite "Lundi", 
                 // Carbon trouvera la date du lundi suivant.
                 $targetDate = Carbon::now()->next($daysMapping[$dayName])->toDateString();
-                 $doctorId=5;
+                 
                  // 1. On cherche si une dispo existe déjà pour ce docteur à cette date
                  
-                  $existingDispo = Availability::where('doctor_id', $doctorId)
+                  $existingDispo = Availability::where('doctor_id', auth()->user()->doctor->id)
                                  ->where('available_date', $targetDate)
                                  ->first();
 
@@ -73,7 +75,7 @@ class AvailabilityController extends Controller
                     $endTime   = $data['end']   ?? ($existingDispo->end_time   ?? '18:00');
                  Availability::updateOrCreate(
                     [
-                        'doctor_id'      => $doctorId,
+                        'doctor_id'      => $doctor->id,
                         'available_date' => $targetDate,
                     ],
                     [
@@ -86,7 +88,7 @@ class AvailabilityController extends Controller
             }else{
                     // CAS 2 : Ce n'est pas coché -> On supprime la dispo pour ce jour là
                     // Cela permet au docteur de passer en "Repos" réellement
-                    Availability::where('doctor_id', $doctorId)
+                    Availability::where('doctor_id', auth()->user()->doctor->id)
                     ->where('available_date', $targetDate)
                     ->delete();
         

@@ -1,17 +1,9 @@
  
 
 <?php $__env->startSection('page-content'); ?>
-<!-- <div class="container mt-4">
-    <div class="card shadow-sm border-0" style="border-radius: 15px;">
-        <div class="card-body p-4">
-            <h4 class="mb-4">Planning / Calendrier</h4>
-            
-            <div id='calendar'></div>
-        </div>
-    </div>
-</div> -->
 
-<div class="d-flex justify-content-between align-items-center mb-4 px-3 py-3 bg-white border-bottom">
+
+<div class="d-flex justify-content-between align-items-center mb-4 px-3 py-2 bg-white border-bottom">
     <div>
         <h2 class="fw-bold mb-0" style="color: #1a202c; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
             Planning <span class="text-muted fw-light">/ Calendrier</span>
@@ -19,13 +11,33 @@
        
     </div>
 
-    <div class="d-flex align-items-center gap-3">
-       
-        <div class="avatar-initials d-flex align-items-center justify-content-center text-white fw-bold shadow-sm" 
-             style="width: 45px; height: 45px; border-radius: 50%; background: linear-gradient(45deg, #e67e22, #d35400);">
-            HA
+        <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-light rounded-circle position-relative border-0 shadow-sm" style="width: 40px; height: 40px; background: #f8f9fa;">
+            <i class="bi bi-bell text-muted"></i>
+            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="margin-left: -8px; margin-top: 8px;"></span>
+        </button>
+
+        <div class="dropdown">
+            <div class="rounded-circle bg-warning text-white d-flex align-items-center justify-content-center fw-bold shadow-sm" 
+                 id="userMenu" data-bs-toggle="dropdown" 
+                 style="width: 45px; height: 45px; cursor: pointer; font-size: 0.9rem;">
+                <?php echo e(substr(Auth::user()->name, 0, 2)); ?>
+
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" style="border-radius: 10px;">
+                <li><a class="dropdown-item fw-bold py-2" href="<?php echo e(route('profile.edit')); ?>"><i class="bi bi-person me-2"></i> Profil</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <form method="POST" action="<?php echo e(route('logout')); ?>">
+                        <?php echo csrf_field(); ?>
+                        <button type="submit" class="dropdown-item py-2 text-warning fw-bold"><i class="bi bi-power me-2"></i> Déconnexion</button>
+                    </form>
+                </li>
+            </ul>
         </div>
     </div>
+
+
 </div>
 
 <div class="container py-3">

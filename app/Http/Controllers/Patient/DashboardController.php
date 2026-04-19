@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     public function index()
-    {
+    {       
+        $patient = auth()->user()->patient;
         // 1. Récupérer le prochain rendez-vous (le plus proche dans le futur)
-        $prochainRDV = Appointment::where('patient_id', Auth::id())
+        $prochainRDV = Appointment::where('patient_id', $patient->id)
             ->where('date', '>=', now())
             ->orderBy('date', 'asc')
             ->first();

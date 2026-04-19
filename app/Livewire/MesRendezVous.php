@@ -28,7 +28,9 @@ class MesRendezVous extends Component
 
     public function render()
     {
-        $query = Appointment::query()->with('doctor');
+        $patient = auth()->user()->patient;
+        $query = Appointment::query()->where('patient_id', $patient->id)
+            ->with('doctor');
 
         // 1. Logique des onglets (Filtre temporel et statut)
         if ($this->activeTab === 'upcoming') {
@@ -51,10 +53,10 @@ class MesRendezVous extends Component
             'appointments' => $query->latest()->paginate(10),
             'doctors' => Doctor::all(),
             'counts' => [
-                'upcoming' => Appointment::where('status', 'pending')->count(),
-                'past'     => Appointment::where('date', '<', now()->toDateString())->count(),
-                'canceled' => Appointment::where('status', 'canceled')->count(),
-            ]
+                'upcoming' => Appointment::where('patient_id', $patient->id)->whereIn('status', ['pending', 'confirmed'])->count(),  
+                'past'  => Appointment::where('patient_id', $patient->id)->where('date', '<', now()->toDateString())->count(),           
+                'canceled' => Appointment::where('patient_id', $patient->id)->where('status', 'canceled')->count(),           
+             ]
         ]);
     }
 }

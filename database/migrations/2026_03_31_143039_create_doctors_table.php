@@ -12,6 +12,7 @@ return new class extends Migration
   public function up(): void {
     Schema::create('doctors', function (Blueprint $table) {
         $table->id();
+        $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         $table->string('name');
         $table->string('specialty');
         $table->string('color')->default('bg-primary'); // Pour l'affichage

@@ -17,7 +17,8 @@ class Appointment extends Model
 
     public function patient()
     {
-        return $this->belongsTo(Patient::class);
+        // On lie le patient_id de la table appointments à l'id de la table patients
+        return $this->belongsTo(Patient::class, 'patient_id');
     }
 
     public function doctor()

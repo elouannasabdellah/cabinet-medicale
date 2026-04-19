@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Doctor\AvailabilityController;
+use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,11 +41,24 @@ Route::middleware(['auth', 'role:patient'])->prefix('patient')->group(function (
 //     Route::view('/planning', 'doctor.planning')->name('doctor.planning');
 //     // Ajoute ici tes autres routes pour les médecins
 // });
-Route::prefix('doctor')->group(function () {
+Route::middleware(['auth'])->prefix('doctor')->group(function () {
 
     Route::view('/dashboard', 'doctor.dashboard')->name('doctor.dashboard');
     Route::get('/disponnibilite', [AvailabilityController::class, 'index'])
-        ->name('doctor.availability.index');;
+        ->name('doctor.availability.index');
+    
+    Route::get('/dashboard',[DoctorController::class ,'dashboardIndex'])->name('doctor.dashboard');
+
+    Route::get('/rdv', [DoctorController::class, 'index'])->name('doctor.rdv');
+    Route::patch('/rdv/{id}/status', [DoctorController::class, 'updateStatus'])->name('rdv.status');
+
+    // Route::get('/consultation', [DoctorController::class, 'consultation'])->name('doctor.consultation');
+    Route::get('/consultation/{id}', [DoctorController::class, 'createConsultation'])
+     ->name('doctor.consultation');
+     Route::post('/consultation/store', [DoctorController::class, 'store'])
+     ->name('doctor.consultation.store');
+
+
 });
 Route::post('/doctor/disponnibilite', [AvailabilityController::class, 'store'])
     ->name('doctor.availability.store');
@@ -69,6 +83,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+     Route::get('/notifications/read-all', [DoctorController::class, 'readAllNotifications'])->name('notifications.readAll');
+
 });
 
 require __DIR__.'/auth.php';

@@ -1,3 +1,37 @@
+
+<style>
+    <style>
+    body {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e7f1ff 100%) !important;
+        font-family: 'Poppins', sans-serif;
+    }
+    .min-h-screen {
+        background: none !important; /* Enlever le gris de Breeze */
+    }
+    /* Style de la carte de connexion */
+    .w-full.sm\:max-w-md {
+        border-top: 5px solid #0d6efd;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+    }
+    /* Style du bouton Login */
+    .inline-flex.items-center.bg-gray-800 {
+        background-color: #0d6efd !important;
+        border-radius: 50px !important;
+        transition: 0.3s;
+    }
+    .inline-flex.items-center.bg-gray-800:hover {
+        background-color: #0b5ed7 !important;
+        transform: translateY(-2px);
+    }
+    /* Style des inputs focus */
+    input:focus {
+        border-color: #0d6efd !important;
+        ring-color: #0d6efd !important;
+    }
+</style>
+</style>
+
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />

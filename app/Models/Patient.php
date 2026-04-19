@@ -20,11 +20,17 @@ class Patient extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
     // un patient a plusieurs rdvs
     public function appointments()
     {
         return $this->hasMany(Appointment::class);
     }
+
+    public function consultations()
+{
+    return $this->hasMany(Consultation::class);
+}
+
 }

@@ -29,7 +29,20 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // Récupérer le rôle de l'utilisateur qui vient de se connecter
+         $role = auth()->user()->role;
+
+        switch ($role) {
+            case 'admin':
+                return redirect()->intended(route('admin.dashboard'));
+            case 'doctor':
+                return redirect()->intended(route('doctor.dashboard'));
+            case 'patient':
+                return redirect()->intended(route('patient.dashboard'));
+            default:
+                return redirect()->intended(RouteServiceProvider::HOME);
+        }
+
     }
 
     /**
@@ -43,6 +56,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

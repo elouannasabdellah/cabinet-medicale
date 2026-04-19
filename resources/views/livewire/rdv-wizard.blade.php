@@ -161,7 +161,7 @@ new class extends Component {
             'patient_phone' => $this->telephone,
             'reason' => $this->motif,
             'status'    => 'pending',
-            'patient_id'    => null, // Pas de connexion
+            'patient_id'    => auth()->user()->patient->id,
         ]);
 
         // 2. Marquer la disponibilité comme "réservée" (is_booked = 1)

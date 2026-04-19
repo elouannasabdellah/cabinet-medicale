@@ -19,7 +19,7 @@ class CheckRole
             return $next($request);
         }
 
-        return redirect('/')->with('error', "Vous n'avez pas accès à cette section.");
+        return redirect('/login')->with('error', "Vous n'avez pas accès à cette section.");
     }
 
 

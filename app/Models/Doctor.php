@@ -9,14 +9,21 @@ class Doctor extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'specialty', 'color'];
+    protected $fillable = ['user_id','name', 'specialty', 'color'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function availabilities() {
         return $this->hasMany(Availability::class);
     }
-    // doctor plusieurs rdvs
+    
     public function appointments()
     {
         return $this->hasMany(Appointment::class);
     }
+
+
 }
