@@ -132,7 +132,8 @@ public function dashboardIndex(){
     // 3. Planning du jour (Cards de gauche)
     $planningDuJour = Appointment::with('patient')
         ->where('doctor_id', $doctor->id)
-        // ->whereDate('date', now())
+        ->whereIn('status', ['confirmed', 'pending']) // Optionnel : pour ne pas afficher les annulés
+        ->orderBy('date', 'asc')
         ->orderBy('time', 'asc')
         ->take(3)
         ->get();

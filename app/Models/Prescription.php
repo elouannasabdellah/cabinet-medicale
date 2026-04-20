@@ -10,9 +10,9 @@ class Prescription extends Model
 {
     use HasFactory;
     protected $fillable = ['consultation_id', 'medicament_nom', 'posologie', 'duree'];
-    public function consultation(): BelongsTo
-    {
-        return $this->belongsTo(Consultation::class);
-    }
 
+    public function consultation()
+    {
+        return $this->belongsTo(Consultation::class, 'consultation_id');
+    }
 }

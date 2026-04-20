@@ -5,7 +5,8 @@ use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Patient\DashboardController; 
+use App\Http\Controllers\Patient\DashboardController;
+use App\Http\Controllers\patient\HistoriqueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,10 +30,14 @@ Route::middleware(['auth', 'role:patient'])->prefix('patient')->group(function (
     // On appelle la méthode 'index' du nouveau contrôleur
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('patient.dashboard');
     // Route::view('/dashboard', 'patient.dashboard')->name('patient.dashboard');;
-    
+
     Route::view('/rdv', 'patient.rdv-list')->name('patient.rdv-list');;
     Route::view('/rdv/create', 'patient.rdv-create')->name('patient.rdv-create');;
-    // Route::view('/rdv/date', 'patient.rdv-date')->name('patient.rdv-date');
+
+    Route::get('/historique', [HistoriqueController::class, 'index'])->name('patient.historique');
+
+    Route::get('/ordonnance', [HistoriqueController::class, 'ordonnance'])->name('patient.ordonnance');
+    Route::get('/ordonnance/download/{id}', [HistoriqueController::class, 'downloadPDF'])->name('patient.ordonnance.download');
 });
 
 // 4. Espace DOCTEUR (Protégé par auth + role:doctor)
@@ -46,23 +51,21 @@ Route::middleware(['auth'])->prefix('doctor')->group(function () {
     Route::view('/dashboard', 'doctor.dashboard')->name('doctor.dashboard');
     Route::get('/disponnibilite', [AvailabilityController::class, 'index'])
         ->name('doctor.availability.index');
-    
-    Route::get('/dashboard',[DoctorController::class ,'dashboardIndex'])->name('doctor.dashboard');
+
+    Route::get('/dashboard', [DoctorController::class, 'dashboardIndex'])->name('doctor.dashboard');
 
     Route::get('/rdv', [DoctorController::class, 'index'])->name('doctor.rdv');
     Route::patch('/rdv/{id}/status', [DoctorController::class, 'updateStatus'])->name('rdv.status');
 
     // Route::get('/consultation', [DoctorController::class, 'consultation'])->name('doctor.consultation');
     Route::get('/consultation/{id}', [DoctorController::class, 'createConsultation'])
-     ->name('doctor.consultation');
-     Route::post('/consultation/store', [DoctorController::class, 'store'])
-     ->name('doctor.consultation.store');
-
-
+        ->name('doctor.consultation');
+    Route::post('/consultation/store', [DoctorController::class, 'store'])
+        ->name('doctor.consultation.store');
 });
 Route::post('/doctor/disponnibilite', [AvailabilityController::class, 'store'])
     ->name('doctor.availability.store');
- 
+
 Route::get('/doctor/calendar', [AvailabilityController::class, 'calendarIndex'])->name('doctor.calendar');
 Route::get('/doctor/events', [AvailabilityController::class, 'getEvents']);
 
@@ -84,8 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-     Route::get('/notifications/read-all', [DoctorController::class, 'readAllNotifications'])->name('notifications.readAll');
-
+    Route::get('/notifications/read-all', [DoctorController::class, 'readAllNotifications'])->name('notifications.readAll');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

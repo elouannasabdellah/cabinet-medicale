@@ -23,42 +23,56 @@
 
 
 
-<div class="p-4" style="background-color: #f8faff; min-height: 100vh;">
+<div class="p-4 container" style="background-color: #f8faff; min-height: 100vh;">
 
-        <div class="p-4" style="background-color: #f8faff; min-height: 100vh;">
+       
 
     <div class="row g-4 mb-5">
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm p-4 rounded-4">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="p-3 bg-primary bg-opacity-10 text-primary rounded-3"><i class="fas fa-calendar-check fs-4"></i></div>
-                    <div><h3 class="fw-bold mb-0"> {{ $stats['rdv_count'] }} </h3><small class="text-muted">RDV à venir</small></div>
-                </div>
+
+      <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
+            <div class="rounded-3 p-2 mb-3 d-flex align-items-center justify-content-center" 
+                 style="background-color: #e3f2fd; width: 45px; height: 45px;">
+                <i class="fas fa-calendar-check" style="color: #0077b6; font-size: 1.2rem;"></i>
             </div>
+            <h2 class="fw-bold mb-0" style="color: #0077b6;">{{ $stats['rdv_count'] }}</h2>
+            <small class="text-muted fw-semibold">RDV à venir</small>
         </div>
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm p-4 rounded-4">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="p-3 bg-success bg-opacity-10 text-success rounded-3"><i class="fas fa-user-md fs-4"></i></div>
-                    <div><h3 class="fw-bold mb-0">{{ $stats['cons_count'] }} </h3><small class="text-muted">Consultations</small></div>
-                </div>
+    </div>
+   
+
+       
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
+            <div class="rounded-3 p-2 mb-3 d-flex align-items-center justify-content-center" 
+                 style="background-color: #e8f5e9; width: 45px; height: 45px;">
+                <i class="fas fa-check-circle" style="color: #2e7d32; font-size: 1.2rem;"></i>
             </div>
+            <h2 class="fw-bold mb-0" style="color: #2e7d32;">{{ $stats['cons_count'] }}</h2>
+            <small class="text-muted fw-semibold">Consultations effectuées</small>
         </div>
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm p-4 rounded-4">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="p-3 bg-warning bg-opacity-10 text-warning rounded-3"><i class="fas fa-file-medical fs-4"></i></div>
-                    <div><h3 class="fw-bold mb-0"> {{ $stats['ord_count'] }}</h3><small class="text-muted">Ordonnances</small></div>
-                </div>
+    </div>
+
+
+     <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
+            <div class="rounded-3 p-2 mb-3 d-flex align-items-center justify-content-center" 
+                 style="background-color: #fff8e1; width: 45px; height: 45px;">
+                <i class="fas fa-file-medical" style="color: #f57c00; font-size: 1.2rem;"></i>
             </div>
+            <h2 class="fw-bold mb-0" style="color: #f57c00;">{{ $stats['ord_count'] }} </h2>
+            <small class="text-muted fw-semibold">Ordonnances actives</small>
         </div>
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm p-4 rounded-4">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="p-3 bg-danger bg-opacity-10 text-danger rounded-3"><i class="fas fa-times-circle fs-4"></i></div>
-                    <div><h3 class="fw-bold mb-0">{{ $stats['ann_count'] }} </h3><small class="text-muted">Annulations</small></div>
-                </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
+            <div class="rounded-3 p-2 mb-3 d-flex align-items-center justify-content-center" 
+                 style="background-color: #ffebee; width: 45px; height: 45px;">
+                <i class="fas fa-times-circle" style="color: #d32f2f; font-size: 1.2rem;"></i>
             </div>
+            <h2 class="fw-bold mb-0" style="color: #d32f2f;">{{ $stats['ann_count'] }}</h2>
+            <small class="text-muted fw-semibold">Annulations</small>
         </div>
     </div>
 
@@ -69,6 +83,7 @@
                 <a href="/doctor/rdv"><button  class="btn btn-outline-primary btn-sm rounded-pill px-3"> Voir plus</button></a>
             </div>
 
+     
             @forelse($planningDuJour as $rdv)
                 <div class="card border-0 shadow-sm mb-2 p-3 rounded-4">
                     <div class="d-flex align-items-center gap-3">
@@ -77,7 +92,7 @@
                                 {{ \Carbon\Carbon::parse($rdv->time)->format('H:i') }} 
                             </span>
                             <small class="text-muted text-uppercase fw-bold" style="font-size: 0.6rem;">
-                                {{ \Carbon\Carbon::parse($rdv->date)->translatedFormat('M') }}
+                                {{ \Carbon\Carbon::parse($rdv->date)->format('d/m/Y') }}
                             </small>
                         </div>
 
@@ -88,7 +103,8 @@
                             </small>
                         </div>
 
-                        <span class="badge {{ $rdv->status == 'confirmed' ? 'bg-success' : 'bg-warning' }} bg-opacity-10 {{ $rdv->status == 'confirmed' ? 'text-success' : 'text-warning' }} rounded-pill px-3">
+                        <span class="badge rounded-pill px-3 py-2 bg-opacity-10 
+                            {{ $rdv->status == 'confirmed' ? 'bg-success text-success' : 'bg-warning text-warning' }}">
                             {{ $rdv->status == 'confirmed' ? 'Confirmé' : 'En attente' }}
                         </span>
                     </div>
@@ -98,7 +114,7 @@
                     <img src="{{ asset('images/empty-calendar.png') }}" alt="" style="width: 50px;" class="opacity-25 mb-3">
                     <p class="text-muted mb-0">Aucun rendez-vous prévu pour le moment.</p>
                 </div>
-            @endforelse {{-- On utilise bien @endforelse ici, PAS @endif --}}
+             @endforelse {{-- On utilise bien @endforelse ici, PAS @endif --}}
 
             <div class="card border-0 shadow-sm mt-3 p-4 rounded-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">

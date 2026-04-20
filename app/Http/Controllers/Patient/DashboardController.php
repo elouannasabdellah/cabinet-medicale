@@ -4,19 +4,35 @@ namespace App\Http\Controllers\Patient;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index()
-    {       
+    {
         $patient = auth()->user()->patient;
         // 1. Récupérer le prochain rendez-vous (le plus proche dans le futur)
         $prochainRDV = Appointment::where('patient_id', $patient->id)
             ->where('date', '>=', now())
             ->orderBy('date', 'asc')
             ->first();
+
+
+        $derniereConsultation = null;
+
+        // 1. Récupérer la dernière consultation du patient connecté
+        // 1. Trouver l'ID du patient associé à l'utilisateur connecté (user_id)
+
+
+        // 2. Chercher la dernière consultation avec le BON patient_id (le id de la table patients)
+        $derniereConsultation = \App\Models\Consultation::where('patient_id', $patient->id)
+            // On prend l'ID le plus grand
+            ->first();
+
+
+
 
         // // 2. Récupérer les statistiques pour tes cartes (RDV à venir, Consultations, etc.)
         // $stats = [
@@ -27,6 +43,6 @@ class DashboardController extends Controller
         // ];
 
         // 3. Envoyer le tout à la vue
-        return view('patient.dashboard', compact('prochainRDV'));
+        return view('patient.dashboard', compact('prochainRDV', 'derniereConsultation'));
     }
 }
