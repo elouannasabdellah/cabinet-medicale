@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Doctor\AvailabilityController;
 use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\ProfileController;
@@ -70,11 +71,10 @@ Route::get('/doctor/calendar', [AvailabilityController::class, 'calendarIndex'])
 Route::get('/doctor/events', [AvailabilityController::class, 'getEvents']);
 
 // 5. Espace ADMIN (Protégé par auth + role:admin)
-// Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
-//     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
-//     Route::view('/users', 'admin.users-list')->name('admin.users');
-//     // Ajoute ici tes autres routes pour l'administration
-// });
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+});
 
 
 Route::get('/dashboard', function () {
