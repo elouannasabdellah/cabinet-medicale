@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Consultation;
+use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -70,4 +72,50 @@ class AdminController extends Controller
 
         return view("admin.dashboard", compact('stats', 'chartRdv', 'chartCons', 'chartPat', 'specialtyLabels', 'specialtyData'));
     }
+
+    // pour create un doctor pour l'admin
+    public function createDoctor()
+    {
+        // On retourne la vue du formulaire
+        return view('admin.doctors.create');
+    }
+    public function storeDoctor(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
+            'role'      => 'required|in:admin,doctor',
+            // On ne demande la spécialité que si c'est un docteur
+            'specialty' => $request->role === 'doctor' ? 'required|string' : 'nullable',
+
+        ]);
+
+        DB::transaction(function () use ($request) {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => $request->role,
+            ]);
+
+            if ($request->role === 'doctor') {
+                $colors = ['bg-primary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-secondary'];
+
+                Doctor::create([
+                    'user_id' => $user->id,
+                    'name' => $request->name,
+                    'specialty' => $request->specialty,
+                    'phone' => $request->phone,
+                    'color'     => $colors[array_rand($colors)], // Choisit une couleur au hasard, // Optionnel : pour vos graphique
+
+                ]);
+            }
+        });
+        return redirect()->back()->with('success', 'Utilisateur créé avec succès !');
+    }
 }
+
+
+// mysql://root:KrqgOrRWDNUUkaFTZbRNUJwHEMomCJPs@mysql.railway.internal:3306/railway
+//DATABASE_URL

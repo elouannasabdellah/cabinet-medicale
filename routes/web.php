@@ -74,6 +74,8 @@ Route::get('/doctor/events', [AvailabilityController::class, 'getEvents']);
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/add-doctor', [AdminController::class, 'createDoctor'])->name('admin.doctors.create');
+    Route::post('/add-doctor', [AdminController::class, 'storeDoctor'])->name('admin.doctors.store');
 });
 
 

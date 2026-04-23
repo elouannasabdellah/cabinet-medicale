@@ -1,3 +1,5 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <div class="d-flex sidebar-container flex-column flex-shrink-0 p-3 text-white bg-dark shadow-lg"
     style="width: 280px; height: 100vh; position: fixed; top: 0; left: 0;background-color: white; z-index: 1000; overflow-y: auto;">
 
@@ -20,9 +22,9 @@
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link text-white">
+            <a href="{{ route('admin.doctors.create') }}" class="nav-link text-white">
                 <i class="bi bi-person-plus me-2"></i> Ajouter un médecin
-            </a>
+                </>
         </li>
 
         <li class="mt-4">
