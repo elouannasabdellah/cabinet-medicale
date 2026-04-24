@@ -1764,66 +1764,67 @@
     </style>
   </head>
   <body>
+
    <div class="nav-wrap" id="nav">
-  <div class="nav-inner">
-    <div class="logo">
-      <div class="logo-ic"><i class="bi bi-heart-pulse-fill"></i></div>
-      <div class="logo-txt">
-        Cabinet Médical<span>Prestige · Casablanca</span>
+        <div class="nav-inner">
+            <div class="logo">
+              <div class="logo-ic"><i class="bi bi-heart-pulse-fill"></i></div>
+              <div class="logo-txt">
+                Cabinet Médical<span>Prestige · Casablanca</span>
+              </div>
+            </div>
+        
+          <div class="nav-links" id="navLinks">
+            <a href="/">Accueil</a>
+            <a href="#specialites">Spécialités</a>
+            <a href="#medecins">Médecins</a>
+            <a href="#about">À propos</a>
+            <a href="#contact">Contact</a>
+          </div>
+
+        @auth
+      
+          <a href="/dashboard" class="btn-login ">
+            <i class="bi bi-speedometer2"></i> Tableau de bord
+          </a>
+        @else
+          <a href="{{ route('login') }}" class="btn-login ">
+            <i class="bi bi-box-arrow-in-right"></i> Se connecter
+          </a>
+        @endauth
+
+        <button class="hamburger" id="burger" onclick="toggleNav()">
+          <i class="bi bi-list" id="bic"></i>
+        </button>
       </div>
-    </div>
-    
-    <div class="nav-links" id="navLinks">
-      <a href="/">Accueil</a>
-      <a href="#specialites">Spécialités</a>
-      <a href="#medecins">Médecins</a>
-      <a href="#about">À propos</a>
-      <a href="#contact">Contact</a>
-    </div>
 
-    @auth
-   
-       <a href="/dashboard" class="btn-login d-none d-lg-inline-flex">
-        <i class="bi bi-speedometer2"></i> Tableau de bord
-      </a>
-    @else
-      <a href="{{ route('login') }}" class="btn-login d-none d-lg-inline-flex">
-        <i class="bi bi-box-arrow-in-right"></i> Se connecter
-      </a>
-    @endauth
-
-    <button class="hamburger" id="burger" onclick="toggleNav()">
-      <i class="bi bi-list" id="bic"></i>
-    </button>
-  </div>
-
-  <div class="mobile-nav" id="mNav">
-    <a href="/" onclick="closeNav()">Accueil</a>
-    <a href="#specialites" onclick="closeNav()">Spécialités</a>
-    <a href="#medecins" onclick="closeNav()">Médecins</a>
-    <a href="#about" onclick="closeNav()">À propos</a>
-    <a href="#contact" onclick="closeNav()">Contact</a>
-    
-   @auth
-    @if(auth()->user()->role === 'admin')
-        <a href="{{ route('admin.dashboard') }}" class="btn-login d-none d-lg-inline-flex">
-            <i class="bi bi-shield-lock me-1"></i> Panel Admin
-        </a>
-    @elseif(auth()->user()->role === 'doctor')
-        <a href="{{ route('doctor.dashboard') }}" class="btn-login d-none d-lg-inline-flex">
-            <i class="bi bi-stethoscope me-1"></i> Espace Docteur
-        </a>
-    @else
-        <a href="{{ route('patient.dashboard') }}" class="btn-login d-none d-lg-inline-flex">
-            <i class="bi bi-person-circle me-1"></i> Mon Espace
-        </a>
-    @endif
-    @else
-        <a href="{{ route('login') }}" class="btn-login d-none d-lg-inline-flex">
-            <i class="bi bi-box-arrow-in-right me-1"></i> Se connecter
-        </a>
-    @endauth
-  </div>
+      <div class="mobile-nav" id="mNav">
+        <a href="/" onclick="closeNav()">Accueil</a>
+        <a href="#specialites" onclick="closeNav()">Spécialités</a>
+        <a href="#medecins" onclick="closeNav()">Médecins</a>
+        <a href="#about" onclick="closeNav()">À propos</a>
+        <a href="#contact" onclick="closeNav()">Contact</a>
+        
+      @auth
+        @if(auth()->user()->role === 'admin')
+            <a href="{{ route('admin.dashboard') }}" class="btn-login">
+                <i class="bi bi-shield-lock me-1"></i> Panel Admin
+            </a>
+        @elseif(auth()->user()->role === 'doctor')
+            <a href="{{ route('doctor.dashboard') }}" class="btn-login">
+                <i class="bi bi-stethoscope me-1"></i> Espace Docteur
+            </a>
+        @else
+            <a href="{{ route('patient.dashboard') }}" class="btn-login d-none">
+                <i class="bi bi-person-circle me-1"></i> Mon Espace
+            </a>
+        @endif
+        @else
+            <a href="{{ route('login') }}" class="btn-login ">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Se connecter
+            </a>
+        @endauth
+      </div>
 </div>
 
     <!-- ══════════════ HERO ══════════════ -->
