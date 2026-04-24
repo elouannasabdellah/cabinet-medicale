@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Availability;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Doctor;
@@ -71,6 +72,8 @@ class DatabaseSeeder extends Seeder
             'birth_date' => '1990-05-15',
             'gender' => 'M'
         ]);
+
+
 
         // Ajoute le 2ème patient ici...
     }

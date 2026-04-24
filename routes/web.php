@@ -23,6 +23,9 @@ use App\Http\Controllers\patient\HistoriqueController;
 Route::get('/', function () {
     return view('welcome');
 });
+// Route::get('/', function () {
+//     return view('welcome');
+// })->middleware('guest');
 
 // si en a besoin seulement de authentification
 // Route::middleware('auth')->group(function () {
@@ -84,6 +87,16 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/rendez-vous', [AdminController::class, 'allAppointments'])->name('admin.appointments.index');
     Route::delete('/appointments/{id}', [AdminController::class, 'destroyAppointment'])->name('admin.appointments.destroy');
 });
+
+Route::get('/dashboard', function () {
+    $role = auth()->user()->role;
+
+    return match ($role) {
+        'admin'  => redirect()->route('admin.dashboard'),
+        'doctor' => redirect()->route('doctor.dashboard'),
+        default  => redirect()->route('patient.dashboard'),
+    };
+})->middleware(['auth'])->name('dashboard');
 
 
 // Route::get('/dashboard', function () {   
