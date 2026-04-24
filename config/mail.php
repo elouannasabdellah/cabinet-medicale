@@ -103,6 +103,9 @@ return [
                 'postmark',
             ],
         ],
+        'resend' => [
+            'transport' => 'resend',
+        ],
     ],
 
     /*
