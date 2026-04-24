@@ -9,34 +9,34 @@
     </div>
     <hr>
 
-    <ul class="nav nav-pills flex-column mb-auto">
+    <ul class="nav nav-pills gap-2 flex-column mb-auto">
         <li class="nav-item">
             <small class="text-uppercase text-muted fw-bold mb-2 d-block" style="font-size: 0.7rem;">Général</small>
-            <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active bg-primary' : 'text-white' }}">
-                <i class="bi bi-speedometer2 me-2"></i> Tableau de bord
-            </a>
+         <a class="nav-link {{ Route::is('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+            <i class="bi bi-speedometer2 me-2"></i> Tableau de bord
+        </a>
         </li>
         <li>
-            <a href="#" class="nav-link text-white">
-                <i class="bi bi-people me-2"></i> Gestion Utilisateurs
-            </a>
+         <a class="nav-link {{ Route::is('admin.users.*') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">
+            <i class="bi bi-people me-2"></i> Gestion Utilisateurs
+        </a>
         </li>
         <li>
-            <a href="{{ route('admin.doctors.create') }}" class="nav-link text-white">
-                <i class="bi bi-person-plus me-2"></i> Ajouter un médecin
-                </>
+          <a class="nav-link {{ Route::is('admin.doctors.create') ? 'active' : '' }}" href="{{ route('admin.doctors.create') }}">
+            <i class="bi bi-person-plus me-2"></i> Ajouter un médecin
+        </a>
         </li>
 
-        <li class="mt-4">
+        {{-- <li class="mt-4">
             <small class="text-uppercase text-muted fw-bold mb-2 d-block" style="font-size: 0.7rem;">Médical</small>
             <a href="#" class="nav-link text-white">
                 <i class="bi bi-person-badge me-2"></i> Patients
             </a>
-        </li>
+        </li> --}}
         <li>
-            <a href="#" class="nav-link text-white">
-                <i class="bi bi-calendar-check me-2"></i> Rendez-vous
-            </a>
+            <a class="nav-link {{ Route::is('admin.appointments.*') ? 'active' : '' }}" href="{{ route('admin.appointments.index') }}">
+            <i class="bi bi-calendar-check me-2"></i> Rendez-vous
+         </a>
         </li>
     </ul>
     <hr>

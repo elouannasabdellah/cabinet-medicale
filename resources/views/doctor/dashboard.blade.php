@@ -1,6 +1,7 @@
 @extends('layouts.patient')
 
 @section('page-content')
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -27,7 +28,7 @@
 
        
 
-    <div class="row g-4 mb-5">
+    <div class="row g-4 mb-5">  
 
       <div class="col-md-3">
         <div class="card border-0 shadow-sm rounded-4 p-3 h-100">

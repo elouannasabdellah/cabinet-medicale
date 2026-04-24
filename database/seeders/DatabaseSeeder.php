@@ -74,4 +74,5 @@ class DatabaseSeeder extends Seeder
 
         // Ajoute le 2ème patient ici...
     }
+    // php artisan config:clear && php artisan view:clear && php artisan migrate --force
 }

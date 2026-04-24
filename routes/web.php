@@ -76,12 +76,19 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/add-doctor', [AdminController::class, 'createDoctor'])->name('admin.doctors.create');
     Route::post('/add-doctor', [AdminController::class, 'storeDoctor'])->name('admin.doctors.store');
+
+    Route::get('/users', [AdminController::class, 'index'])->name('admin.users.index');
+    Route::delete('/admin/users/{user}', [AdminController::class, 'destroy'])->name('admin.users.destroy');
+
+    // Dans ton groupe de routes admin
+    Route::get('/rendez-vous', [AdminController::class, 'allAppointments'])->name('admin.appointments.index');
+    Route::delete('/appointments/{id}', [AdminController::class, 'destroyAppointment'])->name('admin.appointments.destroy');
 });
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {   
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {

@@ -63,7 +63,7 @@
         <h2 class="fw-bold text-dark display-6">Mon Profil</h2>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-decoration-none">Tableau de bord</a></li>
+                <li class="breadcrumb-item"><a href="" class="text-decoration-none">Tableau de bord</a></li>
                 <li class="breadcrumb-item active">Paramètres</li>
             </ol>
         </nav>

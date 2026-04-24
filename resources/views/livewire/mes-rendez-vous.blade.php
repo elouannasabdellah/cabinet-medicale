@@ -1,38 +1,59 @@
 <div class="p-4" style="background-color: #f8fafc;">
   
-    <div class="card border-0 shadow-sm mb-4" style="border-radius: 15px;">
-        <div class="card-body p-4">
-            <div class="row g-2 align-items-end">
-                <div class="col-md-3">
-                    <label class="form-label small fw-bold text-muted">Statut</label>
-                    <select wire:model.live="status" class="form-select border-light-subtle py-2">
-                        <option value="">Tous les statuts</option>
-                        <option value="confirmed">Confirmé</option>
-                        <option value="pending">En attente</option>
-                        <option value="canceled">Annulé</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label small fw-bold text-muted">Médecin</label>
-                    <select wire:model.live="doctorId" class="form-select border-light-subtle py-2">
-                        <option value="">Choisir un médecin</option>
-                        @foreach($doctors as $doctor)
-                            <option value="{{ $doctor->id }}">Dr. {{ $doctor->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label small fw-bold text-muted">Période</label>
-                    <input type="date" wire:model.live="dateFilter" class="form-control border-light-subtle py-2">
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-info w-100 text-white fw-bold py-2 shadow-sm">
-                        <i class="bi bi-search me-2"></i> Filtrer
-                    </button>
-                </div>
-            </div>
+        <div class="mb-4">
+    <div class="row g-3  align-items-end">
+        
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <label class="form-label small fw-bold text-secondary mb-2 ms-1">Statut</label>
+            <select wire:model.live="status" class="form-select custom-input py-2 px-3">
+                <option value="">Tous les statuts</option>
+                <option value="confirmed">Confirmé</option>
+                <option value="pending">En attente</option>
+                <option value="canceled">Annulé</option>
+            </select>
         </div>
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <label class="form-label small fw-bold text-secondary mb-2 ms-1">Médecin</label>
+            <select wire:model.live="doctorId" class="form-select custom-input py-2 px-3">
+                <option value="">Choisir un médecin</option>
+                @foreach($doctors as $doctor)
+                    <option value="{{ $doctor->id }}">Dr. {{ $doctor->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <label class="form-label small fw-bold text-secondary mb-2 ms-1">Période</label>
+            <input type="date" wire:model.live="dateFilter" class="form-control custom-input py-2 px-3">
+        </div>
+
     </div>
+</div>
+
+<style>
+    /* Style personnalisé pour un look épuré et pro */
+    .custom-input {
+        border: 1px solid #e0e6ed !important;
+        border-radius: 10px !important;
+        background-color: #ffffff !important;
+        color: #495057 !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important;
+        transition: all 0.2s ease-in-out !important;
+    }
+
+    .custom-input:focus {
+        border-color: #3b82f6 !important; /* Bleu pro */
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+        outline: none !important;
+    }
+
+    /* Aligne l'icône calendrier sur le champ date proprement */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        opacity: 0.6;
+    }
+</style>
 
     <div>
             <div class="d-flex gap-2 mb-4">
@@ -60,7 +81,7 @@
                         <th class="py-3">MÉDECIN</th>
                         <th class="py-3">MOTIF</th>
                         <th class="py-3">STATUT</th>
-                        <th class="text-center py-3">ACTIONS</th>
+                        {{-- <th class="text-center py-3">ACTIONS</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -93,10 +114,10 @@
                                 {{ $statusLabel }}
                             </span>
                         </td>
-                        <td class="text-center py-3">
+                        {{-- <td class="text-center py-3">
                             <button class="btn btn-sm btn-outline-info border-light-subtle me-1" style="width: 32px;"><i class="bi bi-eye"></i></button>
                             <button class="btn btn-sm btn-outline-danger border-light-subtle" style="width: 32px;"><i class="bi bi-x-lg"></i></button>
-                        </td>
+                        </td> --}}
                     </tr>
                     @empty
                     <tr>

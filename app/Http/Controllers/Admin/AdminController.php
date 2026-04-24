@@ -114,6 +114,55 @@ class AdminController extends Controller
         });
         return redirect()->back()->with('success', 'Utilisateur créé avec succès !');
     }
+
+    // cette fonction pour gestionnaire des utilisateurs
+    public function index(Request $request)
+    {
+        $query = User::query();
+
+        // Recherche par nom, email ou rôle (basé sur votre structure de table)
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%")
+                    ->orWhere('email', 'like', "%$search%")
+                    ->orWhere('role', 'like', "%$search%");
+            });
+        }
+
+        $users = $query->latest()->paginate(6);
+        return view('admin.users.index', compact('users'));
+    }
+
+    public function destroy(User $user)
+    {
+        // Empêcher l'admin de se supprimer lui-même (Optionnel mais recommandé)
+        if (auth()->id() === $user->id) {
+            return back()->with('error', 'Vous ne pouvez pas supprimer votre propre compte !');
+        }
+
+        $user->delete();
+        return back()->with('success', 'Utilisateur supprimé avec succès.');
+    }
+
+
+
+    public function allAppointments()
+    {
+        // On récupère tout, trié par le plus récent, avec les infos patient et docteur
+        $appointments = Appointment::with(['patient', 'doctor'])
+            ->latest()
+            ->paginate(7);
+
+        return view('admin.appointments.index', compact('appointments'));
+    }
+    public function destroyAppointment($id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        $appointment->delete();
+
+        return redirect()->back()->with('success', 'Le rendez-vous a été supprimé avec succès.');
+    }
 }
 
 
