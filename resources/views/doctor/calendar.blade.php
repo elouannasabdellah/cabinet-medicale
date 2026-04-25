@@ -1,4 +1,4 @@
- @extends('layouts.patient')
+@extends('layouts.doctor')
 
 @section('page-content')
 
@@ -99,71 +99,83 @@
 
 
  <!-- 2 eme modal style -->
- <div class="modal fade" id="appointmentModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="appointmentModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow" style="border-radius: 12px;">
-            <div class="modal-header bg-light border-bottom-0" style="border-radius: 12px 12px 0 0;">
-                <h6 class="modal-title text-muted text-uppercase fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;">
-                    Détails du Rendez-vous
-                </h6>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+            
+            <div class="modal-header border-0 pb-0" style="background: linear-gradient(to right, #f8f9fa, #ffffff);">
+                <div class="d-flex align-items-center">
+                    <div class="bg-primary bg-opacity-10 p-2 rounded-circle me-2">
+                        <i class="fas fa-info-circle text-primary"></i>
+                    </div>
+                    <h6 class="modal-title fw-bold text-dark mb-0" style="font-size: 0.9rem;">Détails du Rendez-vous</h6>
+                </div>
+                <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close" style="font-size: 0.8rem;"></button>
             </div>
             
             <div class="modal-body p-4">
-                <div class="d-flex align-items-center mb-4">
-                    <div class="bg-primary text-white d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; border-radius: 10px; font-size: 20px;">
-                        <i class="fas fa-user-md"></i>
-                    </div>
-                    <div class="ms-3">
-                        <h5 id="modalPatientName" class="mb-0 fw-bold" style="color: #2c3e50;"></h5>
-                        <span id="modalStatusBadge" class="badge rounded-pill bg-soft-success text-success" style="font-size: 0.7rem; background-color: #e1fcef;">Confirmé</span>
+                <div class="d-flex align-items-start justify-content-between mb-4 bg-light p-3 rounded-4">
+                    <div class="d-flex align-items-center">
+                        <div class="position-relative">
+                            <div class="bg-white shadow-sm d-flex align-items-center justify-content-center fw-bold text-primary" style="width: 55px; height: 55px; border-radius: 16px; font-size: 1.2rem; border: 2px solid #fff;">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <span class="position-absolute bottom-0 end-0 bg-success border border-2 border-white rounded-circle" style="width: 14px; height: 14px;"></span>
+                        </div>
+                        <div class="ms-3">
+                            <h5 id="modalPatientName" class="mb-1 fw-bold text-dark" style="letter-spacing: -0.2px;"></h5>
+                            <div id="modalStatusBadge" class="badge py-2 px-3 fw-medium" style="font-size: 0.7rem; border-radius: 8px; background-color: #d1f7e8; color: #0f5132;">
+                                <i class="fas fa-check-circle me-1"></i> Confirmé
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <hr class="text-muted opacity-10">
-
                 <div class="row g-4">
                     <div class="col-6">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-notes-medical text-primary me-2"></i>
-                            <div>
-                                <small class="text-muted d-block">Motif</small>
-                                <strong id="modalReason" class="text-dark"></strong>
+                        <div class="p-2">
+                            <div class="text-muted mb-1" style="font-size: 0.75rem;">
+                                <i class="fas fa-stethoscope me-1 text-primary opacity-50"></i> MOTIF
                             </div>
+                            <strong id="modalReason" class="text-dark d-block" style="font-size: 0.95rem;"></strong>
                         </div>
                     </div>
+                    
                     <div class="col-6">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-phone text-primary me-2"></i>
-                            <div>
-                                <small class="text-muted d-block">Contact</small>
-                                <strong id="modalPatientPhone" class="text-dark"></strong>
+                        <div class="p-2">
+                            <div class="text-muted mb-1" style="font-size: 0.75rem;">
+                                <i class="fas fa-phone-alt me-1 text-primary opacity-50"></i> CONTACT
                             </div>
+                            <strong id="modalPatientPhone" class="text-dark d-block" style="font-size: 0.95rem;"></strong>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="d-flex align-items-center">
-                            <i class="far fa-calendar-alt text-primary me-2"></i>
-                            <div>
-                                <small class="text-muted d-block">Date</small>
-                                <strong id="modalDate" class="text-dark"></strong>
+
+                    <div class="col-12">
+                        <div class="d-flex align-items-center p-3" style="background-color: #f0f7ff; border-radius: 15px; border: 1px dashed #cfe2ff;">
+                            <div class="d-flex align-items-center flex-fill">
+                                <i class="far fa-calendar-check fs-4 text-primary me-3"></i>
+                                <div>
+                                    <small class="text-muted d-block" style="font-size: 0.7rem; text-transform: uppercase;">Date prévue</small>
+                                    <strong id="modalDate" class="text-dark" style="font-size: 1rem;"></strong>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="d-flex align-items-center">
-                            <i class="far fa-clock text-primary me-2"></i>
-                            <div>
-                                <small class="text-muted d-block">Horaire</small>
-                                <strong id="modalTime" class="text-dark"></strong>
+                            <div class="vr mx-3 opacity-10"></div>
+                            <div class="d-flex align-items-center flex-fill">
+                                <i class="far fa-clock fs-4 text-primary me-3"></i>
+                                <div>
+                                    <small class="text-muted d-block" style="font-size: 0.7rem; text-transform: uppercase;">Horaire</small>
+                                    <strong id="modalTime" class="text-dark" style="font-size: 1rem;"></strong>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="modal-footer border-top-0 p-3">
-                <button type="button" class="btn btn-light fw-bold px-4" data-bs-dismiss="modal" style="border-radius: 8px;">Fermer</button>
+            <div class="modal-footer border-0 p-4 pt-0">
+                <button type="button" class="btn btn-dark w-100 py-2 fw-bold" data-bs-dismiss="modal" style="border-radius: 12px; background-color: #0b1e2d;">
+                    Fermer les détails
+                </button>
             </div>
         </div>
     </div>

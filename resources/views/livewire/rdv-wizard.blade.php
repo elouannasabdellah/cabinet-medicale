@@ -171,8 +171,9 @@ new class extends Component {
            ->where('start_time', $this->selectedTime) // On utilise start_time comme vu en base
             ->update(['is_booked' => true]);
 
-        //session()->flash('message', 'Rendez-vous confirmé !');
-        return redirect()->to('/patient/dashboard');
+        // session()->flash('message', 'Rendez-vous confirmé !');
+        // return redirect()->to('/patient/dashboard');
+        return redirect()->to('/patient/dashboard')->with('success', 'Votre rendez-vous a été créé avec succès !');
 
     }
 
@@ -364,7 +365,8 @@ new class extends Component {
                                     {{ $time }}
                                 </button>
                             </div>
-                        @endforeach
+                       
+                         @endforeach
                     </div>
                 @else
                     <div class="h-100 d-flex align-items-center justify-content-center border rounded-3 bg-light p-4">
@@ -442,6 +444,20 @@ new class extends Component {
         @endif
     </div>
 </div>
+
+@if (session()->has('success'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Succès !',
+            text: "{{ session('success') }}",
+            timer: 3000,
+            showConfirmButton: false,
+            borderRadius: '15px'
+        });
+    </script>
+@endif
 
 <style>
     /* Effets de transition et hover */

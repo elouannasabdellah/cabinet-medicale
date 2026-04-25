@@ -1,5 +1,5 @@
 
- 
+
 
 <?php $__env->startSection('page-content'); ?>
 <div class="container-fluid px-4">
@@ -212,4 +212,4 @@
 </script>
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.patient', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\LARAVEL\TODO\todo-list\resources\views/doctor/mes_disponibilités.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.doctor', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\LARAVEL\TODO\todo-list\resources\views/doctor/mes_disponibilités.blade.php ENDPATH**/ ?>

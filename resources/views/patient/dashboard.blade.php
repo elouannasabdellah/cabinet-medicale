@@ -105,7 +105,7 @@
     </div>
     @endif
 
-    <div class="row g-4 mb-5">
+    {{-- <div class="row g-4 mb-5">
         <div class="col-md-3">
             <div class="card border-0 shadow-sm rounded-4 p-3 h-100 card-stat">
                 <div class="stat-icon-bg bg-primary-soft mb-3">
@@ -142,7 +142,48 @@
                 <p class="text-muted small mb-0 fw-medium">Annulations</p>
             </div>
         </div>
+    </div> --}}
+    <div class="row g-4 mb-5">
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 p-3 h-100 card-stat">
+            <div class="stat-icon-bg bg-primary-soft mb-3">
+                <i class="bi bi-calendar-event text-primary fs-4"></i>
+            </div>
+            <h2 class="fw-bold mb-1 text-primary">{{ $stats['rdv_a_venir'] }}</h2>
+            <p class="text-muted small mb-0 fw-medium">RDV à venir</p>
+        </div>
     </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 p-3 h-100 card-stat">
+            <div class="stat-icon-bg bg-success-soft mb-3">
+                <i class="bi bi-check-circle text-success fs-4"></i>
+            </div>
+            <h2 class="fw-bold mb-1" style="color: #2c3e50;">{{ $stats['total_consultations'] }}</h2>
+            <p class="text-muted small mb-0 fw-medium">Consultations</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 p-3 h-100 card-stat">
+            <div class="stat-icon-bg bg-warning-soft mb-3">
+                <i class="bi bi-file-earmark-text text-warning fs-4"></i>
+            </div>
+            <h2 class="fw-bold mb-1" style="color: #2c3e50;">{{ $stats['total_ordonnances'] }}</h2>
+            <p class="text-muted small mb-0 fw-medium">Ordonnances</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 p-3 h-100 card-stat">
+            <div class="stat-icon-bg bg-danger-soft mb-3">
+                <i class="bi bi-x-circle text-danger fs-4"></i>
+            </div>
+            <h2 class="fw-bold mb-1 text-danger">{{ $stats['annulations'] }}</h2>
+            <p class="text-muted small mb-0 fw-medium">Annulations</p>
+        </div>
+    </div>
+</div>
 
     @php
     $consignes = [

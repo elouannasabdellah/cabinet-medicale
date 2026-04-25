@@ -50,7 +50,7 @@ Route::middleware(['auth', 'role:patient'])->prefix('patient')->group(function (
 //     Route::view('/planning', 'doctor.planning')->name('doctor.planning');
 //     // Ajoute ici tes autres routes pour les médecins
 // });
-Route::middleware(['auth'])->prefix('doctor')->group(function () {
+Route::middleware(['auth', 'role:doctor'])->prefix('doctor')->group(function () {
 
     Route::view('/dashboard', 'doctor.dashboard')->name('doctor.dashboard');
     Route::get('/disponnibilite', [AvailabilityController::class, 'index'])

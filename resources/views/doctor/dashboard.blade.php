@@ -1,4 +1,4 @@
-@extends('layouts.patient')
+@extends('layouts.doctor')
 
 @section('page-content')
 

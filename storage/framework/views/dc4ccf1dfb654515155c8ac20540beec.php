@@ -1552,66 +1552,67 @@
     </style>
   </head>
   <body>
+
    <div class="nav-wrap" id="nav">
-  <div class="nav-inner">
-    <div class="logo">
-      <div class="logo-ic"><i class="bi bi-heart-pulse-fill"></i></div>
-      <div class="logo-txt">
-        Cabinet Médical<span>Prestige · Casablanca</span>
+        <div class="nav-inner">
+            <div class="logo">
+              <div class="logo-ic"><i class="bi bi-heart-pulse-fill"></i></div>
+              <div class="logo-txt">
+                Cabinet Médical<span>Prestige · Casablanca</span>
+              </div>
+            </div>
+        
+          <div class="nav-links" id="navLinks">
+            <a href="/">Accueil</a>
+            <a href="#specialites">Spécialités</a>
+            <a href="#medecins">Médecins</a>
+            <a href="#about">À propos</a>
+            <a href="#contact">Contact</a>
+          </div>
+
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->guard()->check()): ?>
+      
+          <a href="/dashboard" class="btn-login ">
+            <i class="bi bi-speedometer2"></i> Tableau de bord
+          </a>
+        <?php else: ?>
+          <a href="<?php echo e(route('login')); ?>" class="btn-login ">
+            <i class="bi bi-box-arrow-in-right"></i> Se connecter
+          </a>
+        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+        <button class="hamburger" id="burger" onclick="toggleNav()">
+          <i class="bi bi-list" id="bic"></i>
+        </button>
       </div>
-    </div>
-    
-    <div class="nav-links" id="navLinks">
-      <a href="/">Accueil</a>
-      <a href="#specialites">Spécialités</a>
-      <a href="#medecins">Médecins</a>
-      <a href="#about">À propos</a>
-      <a href="#contact">Contact</a>
-    </div>
 
-    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->guard()->check()): ?>
-   
-       <a href="/dashboard" class="btn-login d-none d-lg-inline-flex">
-        <i class="bi bi-speedometer2"></i> Tableau de bord
-      </a>
-    <?php else: ?>
-      <a href="<?php echo e(route('login')); ?>" class="btn-login d-none d-lg-inline-flex">
-        <i class="bi bi-box-arrow-in-right"></i> Se connecter
-      </a>
-    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-
-    <button class="hamburger" id="burger" onclick="toggleNav()">
-      <i class="bi bi-list" id="bic"></i>
-    </button>
-  </div>
-
-  <div class="mobile-nav" id="mNav">
-    <a href="/" onclick="closeNav()">Accueil</a>
-    <a href="#specialites" onclick="closeNav()">Spécialités</a>
-    <a href="#medecins" onclick="closeNav()">Médecins</a>
-    <a href="#about" onclick="closeNav()">À propos</a>
-    <a href="#contact" onclick="closeNav()">Contact</a>
-    
-   <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->guard()->check()): ?>
-    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->user()->role === 'admin'): ?>
-        <a href="<?php echo e(route('admin.dashboard')); ?>" class="btn-login d-none d-lg-inline-flex">
-            <i class="bi bi-shield-lock me-1"></i> Panel Admin
-        </a>
-    <?php elseif(auth()->user()->role === 'doctor'): ?>
-        <a href="<?php echo e(route('doctor.dashboard')); ?>" class="btn-login d-none d-lg-inline-flex">
-            <i class="bi bi-stethoscope me-1"></i> Espace Docteur
-        </a>
-    <?php else: ?>
-        <a href="<?php echo e(route('patient.dashboard')); ?>" class="btn-login d-none d-lg-inline-flex">
-            <i class="bi bi-person-circle me-1"></i> Mon Espace
-        </a>
-    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-    <?php else: ?>
-        <a href="<?php echo e(route('login')); ?>" class="btn-login d-none d-lg-inline-flex">
-            <i class="bi bi-box-arrow-in-right me-1"></i> Se connecter
-        </a>
-    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-  </div>
+      <div class="mobile-nav" id="mNav">
+        <a href="/" onclick="closeNav()">Accueil</a>
+        <a href="#specialites" onclick="closeNav()">Spécialités</a>
+        <a href="#medecins" onclick="closeNav()">Médecins</a>
+        <a href="#about" onclick="closeNav()">À propos</a>
+        <a href="#contact" onclick="closeNav()">Contact</a>
+        
+      <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->guard()->check()): ?>
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(auth()->user()->role === 'admin'): ?>
+            <a href="<?php echo e(route('admin.dashboard')); ?>" class="btn-login">
+                <i class="bi bi-shield-lock me-1"></i> Panel Admin
+            </a>
+        <?php elseif(auth()->user()->role === 'doctor'): ?>
+            <a href="<?php echo e(route('doctor.dashboard')); ?>" class="btn-login">
+                <i class="bi bi-stethoscope me-1"></i> Espace Docteur
+            </a>
+        <?php else: ?>
+            <a href="<?php echo e(route('patient.dashboard')); ?>" class="btn-login d-none">
+                <i class="bi bi-person-circle me-1"></i> Mon Espace
+            </a>
+        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+        <?php else: ?>
+            <a href="<?php echo e(route('login')); ?>" class="btn-login ">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Se connecter
+            </a>
+        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+      </div>
 </div>
 
     <!-- ══════════════ HERO ══════════════ -->
@@ -2365,6 +2366,23 @@
     white-space: nowrap; /* Évite que "14 ans" ne revienne à la ligne */
     border: 1px solid rgba(230, 168, 23, 0.25);
 }
+.scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    background-color: #ffc107; /* Ton jaune */
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none; /* On le cache par défaut */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
 </style>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -2424,6 +2442,15 @@
           a.style.fontWeight = a.getAttribute("href") === "#" + c ? "700" : "";
         });
       });
+
+      window.onscroll = function() {
+    let btn = document.getElementById("scrollTop");
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        btn.style.display = "flex"; // Affiche le bouton
+    } else {
+        btn.style.display = "none"; // Cache le bouton
+    }
+};
     </script>
   </body>
 </html>

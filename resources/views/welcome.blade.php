@@ -2780,6 +2780,23 @@
     white-space: nowrap; /* Évite que "14 ans" ne revienne à la ligne */
     border: 1px solid rgba(230, 168, 23, 0.25);
 }
+.scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    background-color: #ffc107; /* Ton jaune */
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none; /* On le cache par défaut */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
 </style>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -2839,6 +2856,15 @@
           a.style.fontWeight = a.getAttribute("href") === "#" + c ? "700" : "";
         });
       });
+
+      window.onscroll = function() {
+    let btn = document.getElementById("scrollTop");
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        btn.style.display = "flex"; // Affiche le bouton
+    } else {
+        btn.style.display = "none"; // Cache le bouton
+    }
+};
     </script>
   </body>
 </html>

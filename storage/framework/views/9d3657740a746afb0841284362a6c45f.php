@@ -1,6 +1,7 @@
 
 
 <?php $__env->startSection('page-content'); ?>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -27,7 +28,7 @@
 
        
 
-    <div class="row g-4 mb-5">
+    <div class="row g-4 mb-5">  
 
       <div class="col-md-3">
         <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
@@ -221,4 +222,4 @@
     .bg-info { background-color: #17a2b8 !important; }
 </style>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.patient', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\LARAVEL\TODO\todo-list\resources\views/doctor/dashboard.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.doctor', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\LARAVEL\TODO\todo-list\resources\views/doctor/dashboard.blade.php ENDPATH**/ ?>
