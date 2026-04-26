@@ -75,11 +75,11 @@ class DoctorController extends Controller
             'diagnostic' => 'required|string',
             "observations" => 'required|string',
         ]);
-
+        $doctor = auth()->user()->doctor; // On récupère la relation
         // 2. Création de la consultation
         $consultation = Consultation::create([
             'patient_id'  => $request->patient_id,
-            'doctor_id'   => auth()->id(),
+            'doctor_id'   => $doctor->id,
             'motif'       => $request->motif,
             'diagnostic'  => $request->diagnostic,
             'temperature' => $request->temperature,
