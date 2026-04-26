@@ -66,12 +66,15 @@ Route::middleware(['auth', 'role:doctor'])->prefix('doctor')->group(function () 
         ->name('doctor.consultation');
     Route::post('/consultation/store', [DoctorController::class, 'store'])
         ->name('doctor.consultation.store');
-});
-Route::post('/doctor/disponnibilite', [AvailabilityController::class, 'store'])
-    ->name('doctor.availability.store');
 
-Route::get('/doctor/calendar', [AvailabilityController::class, 'calendarIndex'])->name('doctor.calendar');
-Route::get('/doctor/events', [AvailabilityController::class, 'getEvents']);
+    Route::get('/doctor/calendar', [AvailabilityController::class, 'calendarIndex'])->name('doctor.calendar');
+    Route::get('/doctor/events', [AvailabilityController::class, 'getEvents']);
+    Route::post('/doctor/disponnibilite', [AvailabilityController::class, 'store'])
+        ->name('doctor.availability.store');
+});
+
+
+
 
 // 5. Espace ADMIN (Protégé par auth + role:admin)
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
