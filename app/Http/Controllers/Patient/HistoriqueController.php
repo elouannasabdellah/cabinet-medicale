@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\patient;
+// namespace App\Http\Controllers\patient;
+namespace App\Http\Controllers\Patient;
 
 use App\Http\Controllers\Controller;
 use App\Models\Prescription;
@@ -23,6 +24,7 @@ class HistoriqueController extends Controller
     //   $q->where('patient_id', auth()->id());
     // })->get()->groupBy('consultation_id');
 
+
     $ordonnances = Prescription::whereHas('consultation', function ($q) {
       $q->whereHas('patient', function ($query) {
         $query->where('user_id', auth()->id());
@@ -40,6 +42,7 @@ class HistoriqueController extends Controller
 
     if ($prescriptions->isEmpty()) {
       return "Aucune prescription trouvée.";
+      // return redirect()->back()->with('error', "Aucune prescription trouvée pour ce rendez-vous.");
     }
     $infos = $prescriptions->first();
 
@@ -80,6 +83,4 @@ class HistoriqueController extends Controller
     $pdf = Pdf::loadHTML($html);
     return $pdf->download('ordonnance-' . $id . '.pdf');
   }
-
-
 }
