@@ -72,6 +72,19 @@ class DatabaseSeeder extends Seeder
             'birth_date' => '1990-05-15',
             'gender' => 'M'
         ]);
+        $pat2 = User::create([
+            'name' => 'mohamed',
+            'email' => 'mohamed@gmail.com',
+            'password' => Hash::make('password123'),
+            'role' => 'patient',
+        ]);
+        Patient::create([
+            'user_id' => $pat2->id,
+            'phone' => '0612345678',
+            'address' => 'Rue Mohamed V, Marrakech',
+            'birth_date' => '19995-05-15',
+            'gender' => 'M'
+        ]);
 
 
 
