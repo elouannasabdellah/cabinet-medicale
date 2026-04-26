@@ -451,8 +451,76 @@
         <h3 class="fw-bold text-primary mb-0">Mes Ordonnances</h3>
         <p class="text-muted small">Historique de vos soins médicaux</p>
     </div>
+        {{-- On vérifie s'il y a des ordonnances --}}
+        @if($ordonnances && $ordonnances->count() > 0)
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                @foreach($ordonnances as $id => $items)
+                    @php $premiere = $items->first(); @endphp
+                    <div class="col">
+                        <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 card-hover">
+                            <div class="card-body p-0 d-flex flex-column h-100">
 
-    <div class="row row-cols-1 row-cols-md-2 g-4">
+                                <div class="bg-primary p-3 d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-warning text-primary fw-bold rounded-2 px-2 py-1 me-2 small">
+                                            {{ $premiere->created_at->format('d M') }}
+                                        </div>
+                                        <span class="text-white fw-bold small">ORD-00{{ $id }}</span>
+                                    </div>
+                                    <i class="bi bi-patch-check-fill text-warning"></i>
+                                </div>
+
+                                <div class="p-3 flex-grow-1">
+                                    <div class="mb-3">
+                                        <p class="text-muted x-small mb-1 text-uppercase fw-bold">Médecin</p>
+                                        {{-- Utilisation du nom dynamique du médecin si la relation existe --}}
+                                        <h6 class="fw-bold text-dark mb-0">
+                                            Dr. {{ $premiere->consultation->doctor->user->name ?? 'Alaoui' }}
+                                        </h6>
+                                    </div>
+
+                                    <div class="bg-light p-2 rounded-3">
+                                        <p class="text-primary x-small mb-2 fw-bold text-uppercase">Médicaments</p>
+                                        @foreach($items as $item)
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="small fw-semibold text-dark">{{ $item->medicament_nom }}</span>
+                                            <span class="badge bg-white text-primary border border-primary-subtle x-small">{{ $item->duree }}</span>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                                <div class="p-3 pt-0 mt-auto">
+                                    <a href="{{ route('patient.ordonnance.download', $id) }}"
+                                        class="btn btn-warning w-100 fw-bold text-primary rounded-3 shadow-sm py-2 transition-btn">
+                                        <i class="bi bi-download me-2"></i> Télécharger PDF
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            {{-- Message affiché quand il n'y a aucune ordonnance --}}
+            <div class="card border-0 shadow-sm rounded-4 p-5 text-center">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <i class="bi bi-file-earmark-text text-muted opacity-25" style="font-size: 5rem;"></i>
+                    </div>
+                    <h4 class="fw-bold text-dark">Aucune ordonnance</h4>
+                    <p class="text-muted mx-auto" style="max-width: 400px;">
+                        Vous n'avez pas encore d'ordonnances enregistrées dans votre dossier médical. 
+                        Elles apparaîtront ici après vos consultations.
+                    </p>
+                    <a href="{{ url('patient/dashboard') }}" class="btn btn-primary rounded-pill px-4 mt-3">
+                        Retour au tableau de bord
+                    </a>
+                </div>
+            </div>
+        @endif
+    {{-- <div class="row row-cols-1 row-cols-md-2 g-4">
         @foreach($ordonnances as $id => $items)
         @php $premiere = $items->first(); @endphp
         <div class="col">
@@ -497,7 +565,7 @@
             </div>
         </div>
         @endforeach
-    </div>
+    </div> --}}
 </div>
 
 <style>
