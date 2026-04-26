@@ -7,7 +7,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Patient\DashboardController;
-use App\Http\Controllers\patient\HistoriqueController;
+use App\Http\Controllers\Patient\HistoriqueController;
 
 /*
 |--------------------------------------------------------------------------
