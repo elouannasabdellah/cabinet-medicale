@@ -4,7 +4,7 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
+// use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class AppointmentCancelled extends Notification
@@ -20,23 +20,13 @@ class AppointmentCancelled extends Notification
 
     public function via($notifiable)
     {
-        return ['database', 'mail'];
+        return ['database'];
     }
-    // public function toMail($notifiable)
-    // {
-    //     return (new MailMessage)
-    //         ->subject('Information : Annulation de votre rendez-vous')
-    //         ->greeting('Bonjour ' . $this->appointment->patient->nom . ',')
-    //         ->line('Nous vous informons que votre rendez-vous prévu au cabinet a dû être annulé.')
-    //         ->line('Voici les détails du rendez-vous concerné :')
-    //         // Utilisation de Carbon pour le format de date
-    //         ->line('📅 Date : ' . \Carbon\Carbon::parse($this->appointment->date)->translatedFormat('d F Y'))
-    //         ->line('⏰ Heure : ' . $this->appointment->time)
-    //         ->line('Nous nous excusons pour ce contretemps.')
-    //         ->action('Reprendre un nouveau rendez-vous', url('/dashboard'))
-    //         ->line('Vous pouvez choisir un nouveau créneau directement depuis votre espace patient.')
-    //         ->line('Merci de votre compréhension.');
-    // }
+    /**
+     * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
+     */
 
     public function toArray($notifiable)
     {
