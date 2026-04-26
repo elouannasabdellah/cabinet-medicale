@@ -457,54 +457,78 @@
         <h3 class="fw-bold text-primary mb-0">Mes Ordonnances</h3>
         <p class="text-muted small">Historique de vos soins médicaux</p>
     </div>
+        
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($ordonnances && $ordonnances->count() > 0): ?>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $ordonnances; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $id => $items): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                    <?php $premiere = $items->first(); ?>
+                    <div class="col">
+                        <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 card-hover">
+                            <div class="card-body p-0 d-flex flex-column h-100">
 
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $ordonnances; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $id => $items): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
-        <?php $premiere = $items->first(); ?>
-        <div class="col">
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 card-hover">
-                <div class="card-body p-0 d-flex flex-column h-100">
+                                <div class="bg-primary p-3 d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-warning text-primary fw-bold rounded-2 px-2 py-1 me-2 small">
+                                            <?php echo e($premiere->created_at->format('d M')); ?>
 
-                    <div class="bg-primary p-3 d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <div class="bg-warning text-primary fw-bold rounded-2 px-2 py-1 me-2 small">
-                                <?php echo e($premiere->created_at->format('d M')); ?>
+                                        </div>
+                                        <span class="text-white fw-bold small">ORD-00<?php echo e($id); ?></span>
+                                    </div>
+                                    <i class="bi bi-patch-check-fill text-warning"></i>
+                                </div>
+
+                                <div class="p-3 flex-grow-1">
+                                    <div class="mb-3">
+                                        <p class="text-muted x-small mb-1 text-uppercase fw-bold">Médecin</p>
+                                        
+                                        <h6 class="fw-bold text-dark mb-0">
+                                            Dr. <?php echo e($premiere->consultation->doctor->user->name ?? 'Alaoui'); ?>
+
+                                        </h6>
+                                    </div>
+
+                                    <div class="bg-light p-2 rounded-3">
+                                        <p class="text-primary x-small mb-2 fw-bold text-uppercase">Médicaments</p>
+                                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="small fw-semibold text-dark"><?php echo e($item->medicament_nom); ?></span>
+                                            <span class="badge bg-white text-primary border border-primary-subtle x-small"><?php echo e($item->duree); ?></span>
+                                        </div>
+                                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+                                    </div>
+                                </div>
+
+                                <div class="p-3 pt-0 mt-auto">
+                                    <a href="<?php echo e(route('patient.ordonnance.download', $id)); ?>"
+                                        class="btn btn-warning w-100 fw-bold text-primary rounded-3 shadow-sm py-2 transition-btn">
+                                        <i class="bi bi-download me-2"></i> Télécharger PDF
+                                    </a>
+                                </div>
 
                             </div>
-                            <span class="text-white fw-bold small">ORD-00<?php echo e($id); ?></span>
-                        </div>
-                        <i class="bi bi-patch-check-fill text-warning"></i>
-                    </div>
-
-                    <div class="p-3 flex-grow-1">
-                        <div class="mb-3">
-                            <p class="text-muted x-small mb-1 text-uppercase fw-bold">Médecin</p>
-                            <h6 class="fw-bold text-dark mb-0">Dr. Alaoui</h6>
-                        </div>
-
-                        <div class="bg-light p-2 rounded-3">
-                            <p class="text-primary x-small mb-2 fw-bold text-uppercase">Médicaments</p>
-                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <span class="small fw-semibold text-dark"><?php echo e($item->medicament_nom); ?></span>
-                                <span class="badge bg-white text-primary border border-primary-subtle x-small"><?php echo e($item->duree); ?></span>
-                            </div>
-                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
                         </div>
                     </div>
-
-                    <div class="p-3 pt-0 mt-auto">
-                        <a href="<?php echo e(route('patient.ordonnance.download', $id)); ?>"
-                            class="btn btn-warning w-100 fw-bold text-primary rounded-3 shadow-sm py-2 transition-btn">
-                            <i class="bi bi-download me-2"></i> Télécharger PDF
-                        </a>
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+            </div>
+        <?php else: ?>
+            
+            <div class="card border-0 shadow-sm rounded-4 p-5 text-center">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <i class="bi bi-file-earmark-text text-muted opacity-25" style="font-size: 5rem;"></i>
                     </div>
-
+                    <h4 class="fw-bold text-dark">Aucune ordonnance</h4>
+                    <p class="text-muted mx-auto" style="max-width: 400px;">
+                        Vous n'avez pas encore d'ordonnances enregistrées dans votre dossier médical. 
+                        Elles apparaîtront ici après vos consultations.
+                    </p>
+                    <a href="<?php echo e(url('patient/dashboard')); ?>" class="btn btn-primary rounded-pill px-4 mt-3">
+                        Retour au tableau de bord
+                    </a>
                 </div>
             </div>
-        </div>
-        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
-    </div>
+        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+    
 </div>
 
 <style>

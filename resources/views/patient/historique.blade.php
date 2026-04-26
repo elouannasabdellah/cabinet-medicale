@@ -107,5 +107,122 @@
     </div>
 </nav>
 
+<style>
+    :root {
+        --medical-blue: #0d6efd;
+        --medical-yellow: #ffc107;
+    }
+
+    .page-header {
+        border-left: 5px solid var(--medical-yellow);
+        padding-left: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .table-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+
+    .custom-table thead {
+        background-color: var(--medical-blue);
+        color: white;
+    }
+
+    .custom-table th {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        padding: 1.2rem;
+        border: none;
+    }
+
+    .custom-table tbody tr:hover {
+        background-color: rgba(13, 110, 253, 0.02);
+    }
+
+    .observation-text {
+        font-style: italic;
+        color: #6c757d;
+        font-size: 0.85rem;
+    }
+
+    .diagnostic-badge {
+        background-color: rgba(255, 193, 7, 0.1);
+        color: #856404;
+        border: 1px solid rgba(255, 193, 7, 0.2);
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-weight: 600;
+        display: inline-block;
+    }
+ </style>
+
+<div class="container py-5">
+    <div class="page-header">
+        <h2 class="fw-bold text-dark mb-1">Historique <span style="color: var(--medical-blue);">Médical</span></h2>
+        <p class="text-muted mb-0 small">Consultez vos diagnostics et observations passées.</p>
+    </div>
+
+    @if($consultations->isEmpty())
+        <div class="table-container p-5 text-center">
+            <i class="bi bi-folder2-open text-warning opacity-50" style="font-size: 3rem;"></i>
+            <h5 class="mt-3">Aucun historique disponible</h5>
+        </div>
+    @else
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table custom-table align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Médecin</th>
+                            <th>Diagnostic</th>
+                            <th>Observations</th>
+                            <th>Constantes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($consultations as $c)
+                        <tr>
+                            <td>
+                                <div class="fw-bold text-dark">{{ $c->created_at->format('d/m/Y') }}</div>
+                                <div class="text-muted x-small">{{ $c->created_at->format('H:i') }}</div>
+                            </td>
+                            <td>
+                                <div class="fw-semibold">Dr. {{ $c->doctor->user->name ?? 'Alaoui' }}</div>
+                            </td>
+                            <td>
+                                <div class="diagnostic-badge small">
+                                    {{ $c->diagnostic ?? 'Non spécifié' }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="observation-text">
+                                    <i class="bi bi-chat-left-text me-1"></i>
+                                    {{ $c->observations ?? 'Aucune observation particulière.' }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="x-small">
+                                    <span class="badge bg-light text-dark border">
+                                        <i class="bi bi-thermometer-half text-danger"></i> {{ $c->temperature ?? '--' }}°C
+                                    </span>
+                                    <span class="badge bg-light text-dark border">
+                                        <i class="bi bi-droplet text-primary"></i> {{ $c->tension ?? '--' }}
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    @endif
+</div>
+
 
 @endsection

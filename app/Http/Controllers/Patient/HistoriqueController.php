@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Patient;
 
 use App\Http\Controllers\Controller;
+use App\Models\Consultation;
 use App\Models\Prescription;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -12,8 +13,25 @@ class HistoriqueController extends Controller
 {
   public function index()
   {
+    // On récupère les consultations liées au patient (via son user_id)
+    $consultations = Consultation::whereHas('patient', function ($query) {
+      $query->where('user_id', auth()->id());
+    })
+      ->with(['doctor.user']) // On charge les relations pour éviter trop de requêtes SQL
+      ->orderBy('created_at', 'desc')
+      ->get();
 
-    return view('patient.historique');
+    return view('patient.historique', compact('consultations'));
+  }
+  // --- ESPACE DOCTEUR ---
+  public function indexDoctor()
+  {
+    // Le docteur voit TOUTES les consultations pour pouvoir gérer ses patients
+    $consultations = Consultation::with(['patient.user'])
+      ->orderBy('created_at', 'desc')
+      ->get();
+
+    return view('doctor.historique', compact('consultations'));
   }
 
   public function ordonnance()

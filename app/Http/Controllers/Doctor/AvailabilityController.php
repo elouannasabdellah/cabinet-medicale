@@ -117,12 +117,13 @@ class AvailabilityController extends Controller
         $events = $appointments->map(function ($app) {
             // Fusion de la date (Y-m-d) et de l'heure (H:i)
             // Résultat attendu par le JS : "2026-04-03T14:30"
-            $startDateTime = $app->date->format('Y-m-d') . 'T' . $app->time;
+            $startDate = \Carbon\Carbon::parse($app->date)->format('Y-m-d');
+            $startTime = date('H:i:s', strtotime($app->time));
 
             return [
                 'id'    => $app->id,
                 'title' => $app->patient_name . " - " . $app->reason,
-                'start' => $startDateTime,
+                'start' => $startDate . 'T' . $startTime,
                 'extendedProps' => [
                     'reason' => $app->reason, // <--- C'est cette ligne qui remplit "Motif"
                     'phone'  => $app->patient_phone

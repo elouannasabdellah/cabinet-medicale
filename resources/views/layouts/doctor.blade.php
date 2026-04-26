@@ -79,6 +79,13 @@
                     <span>Mes Disponibilités</span>
                 </a>
             </li>
+              <li class="nav-item">
+                <a href="{{ route('doctor.historique') }}" 
+                class="nav-link text-white d-flex align-items-center gap-3 py-2.5 px-3 rounded-3 {{ request()->routeIs('doctor.historique') ? 'bg-primary' : 'opacity-75 hover-opacity' }}">
+                    <i class="bi bi-clock-history fs-5"></i> 
+                    <span>Historique</span>
+                </a>
+            </li>
         </ul>
 
         {{-- <ul class="nav nav-pills flex-column mt-auto border-top pt-4 border-secondary border-opacity-25" style="list-style: none; padding: 0;">

@@ -40,7 +40,7 @@
                         <i class="bi bi-calendar2-check-fill fs-5"></i> 
                         <span>Mes Rendez-vous</span>
                     </div>
-                    <span class="badge rounded-pill bg-info text-dark fw-bold">3</span>
+                    
                 </a>
             </li>
         </ul>
@@ -50,6 +50,16 @@
         </div>
         <ul class="nav nav-pills flex-column mb-4" style="gap: 8px;">
             
+             <li class="nav-item">
+                <a href="<?php echo e(route('patient.historique')); ?>" 
+                   class="nav-link text-white d-flex align-items-center justify-content-between py-2.5 px-3 rounded-3 <?php echo e(request()->routeIs('patient.historique') ? 'bg-primary' : 'opacity-75 hover-opacity'); ?>">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="bi bi-calendar2-check-fill fs-5"></i> 
+                        <span>Mon Historique</span>
+                    </div>
+                    
+                </a>
+            </li>
             <li class="nav-item">
                 <a href="<?php echo e(route('patient.ordonnance')); ?>" 
                    class="nav-link text-white d-flex align-items-center gap-3 py-2.5 px-3 rounded-3 <?php echo e(request()->routeIs('patient.ordonnance') ? 'bg-primary' : 'opacity-75 hover-opacity'); ?>">

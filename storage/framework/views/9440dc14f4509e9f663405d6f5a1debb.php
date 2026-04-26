@@ -111,6 +111,126 @@
     </div>
 </nav>
 
+<style>
+    :root {
+        --medical-blue: #0d6efd;
+        --medical-yellow: #ffc107;
+    }
+
+    .page-header {
+        border-left: 5px solid var(--medical-yellow);
+        padding-left: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .table-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+
+    .custom-table thead {
+        background-color: var(--medical-blue);
+        color: white;
+    }
+
+    .custom-table th {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        padding: 1.2rem;
+        border: none;
+    }
+
+    .custom-table tbody tr:hover {
+        background-color: rgba(13, 110, 253, 0.02);
+    }
+
+    .observation-text {
+        font-style: italic;
+        color: #6c757d;
+        font-size: 0.85rem;
+    }
+
+    .diagnostic-badge {
+        background-color: rgba(255, 193, 7, 0.1);
+        color: #856404;
+        border: 1px solid rgba(255, 193, 7, 0.2);
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-weight: 600;
+        display: inline-block;
+    }
+ </style>
+
+<div class="container py-5">
+    <div class="page-header">
+        <h2 class="fw-bold text-dark mb-1">Historique <span style="color: var(--medical-blue);">Médical</span></h2>
+        <p class="text-muted mb-0 small">Consultez vos diagnostics et observations passées.</p>
+    </div>
+
+    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($consultations->isEmpty()): ?>
+        <div class="table-container p-5 text-center">
+            <i class="bi bi-folder2-open text-warning opacity-50" style="font-size: 3rem;"></i>
+            <h5 class="mt-3">Aucun historique disponible</h5>
+        </div>
+    <?php else: ?>
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table custom-table align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Médecin</th>
+                            <th>Diagnostic</th>
+                            <th>Observations</th>
+                            <th>Constantes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $consultations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                        <tr>
+                            <td>
+                                <div class="fw-bold text-dark"><?php echo e($c->created_at->format('d/m/Y')); ?></div>
+                                <div class="text-muted x-small"><?php echo e($c->created_at->format('H:i')); ?></div>
+                            </td>
+                            <td>
+                                <div class="fw-semibold">Dr. <?php echo e($c->doctor->user->name ?? 'Alaoui'); ?></div>
+                            </td>
+                            <td>
+                                <div class="diagnostic-badge small">
+                                    <?php echo e($c->diagnostic ?? 'Non spécifié'); ?>
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="observation-text">
+                                    <i class="bi bi-chat-left-text me-1"></i>
+                                    <?php echo e($c->observations ?? 'Aucune observation particulière.'); ?>
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="x-small">
+                                    <span class="badge bg-light text-dark border">
+                                        <i class="bi bi-thermometer-half text-danger"></i> <?php echo e($c->temperature ?? '--'); ?>°C
+                                    </span>
+                                    <span class="badge bg-light text-dark border">
+                                        <i class="bi bi-droplet text-primary"></i> <?php echo e($c->tension ?? '--'); ?>
+
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+</div>
+
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.patient', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\LARAVEL\TODO\todo-list\resources\views/patient/historique.blade.php ENDPATH**/ ?>

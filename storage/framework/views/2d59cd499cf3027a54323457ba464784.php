@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
         // Récupération des données depuis ton contrôleur
-        events: '/doctor/events', 
+        events: "<?php echo e(route('doctor.getEvents')); ?>", 
 
         // Style des événements (Coins arrondis comme sur l'image)
         eventDidMount: function(info) {

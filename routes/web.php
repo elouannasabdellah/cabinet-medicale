@@ -68,9 +68,11 @@ Route::middleware(['auth', 'role:doctor'])->prefix('doctor')->group(function () 
         ->name('doctor.consultation.store');
 
     Route::get('/doctor/calendar', [AvailabilityController::class, 'calendarIndex'])->name('doctor.calendar');
-    Route::get('/doctor/events', [AvailabilityController::class, 'getEvents']);
+    Route::get('/doctor/events', [AvailabilityController::class, 'getEvents'])->name('doctor.getEvents');
     Route::post('/doctor/disponnibilite', [AvailabilityController::class, 'store'])
         ->name('doctor.availability.store');
+
+    Route::get('/doctor/historique', [HistoriqueController::class, 'indexDoctor'])->name('doctor.historique');
 });
 
 
