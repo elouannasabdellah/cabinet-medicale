@@ -84,7 +84,7 @@
         ?>
 
         <div class="col-12 col-md-6 col-xl-4">
-            <div class="modern-patient-card h-100 shadow-sm border-0">
+            <div class="modern-patient-card h-100 shadow-sm border-0" >
                 <div class="card-header-glass d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
                         <div class="calendar-mini-icon me-2">
@@ -106,12 +106,12 @@
                         </div>
                     </div>
                     <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($rdv->status != 'canceled'): ?>
-        <div class="d-grid mt-3 mb-3 ">
-            <a href="<?php echo e(route('doctor.consultation', $rdv->id)); ?>" class="btn-consult">
-                <i class="bi bi-play-fill me-2"></i> Démarrer la Consultation
-            </a>
-        </div>
-    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                    <div class="d-grid mt-3 mb-3 ">
+                        <a href="<?php echo e(route('doctor.consultation', $rdv->id)); ?>" class="btn-consult">
+                            <i class="bi bi-play-fill me-2"></i> Démarrer la Consultation
+                        </a>
+                    </div>
+                   <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     <div class="d-flex justify-content-between align-items-center pt-3 border-top">
                         <div class="status-indicator" style="color: <?php echo e($current['color']); ?>; background: <?php echo e($current['bg']); ?>;">
                             <i class="bi <?php echo e($current['icon']); ?> me-2"></i> <?php echo e($current['text']); ?>
@@ -177,6 +177,7 @@
                     </div>
                 </div>
             </div>
+          
         </div>
     <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
         <div class="col-12 text-center py-5">
@@ -186,7 +187,12 @@
                 <p class="text-muted">Vous n'avez pas de rendez-vous pour le moment.</p>
             </div>
         </div>
+         
     <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+         <div class="d-flex justify-content-center mt-5">
+                <?php echo e($rendezVous->links('pagination::bootstrap-5')); ?>
+
+           </div>
 </div>
 
 
@@ -292,6 +298,36 @@
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
 }
+
+
+/* Style pour la pagination */
+.pagination .page-link {
+    background-color: #ffffff;
+    color: #0b1e2d; /* La couleur de votre sidebar */
+    border: none;
+    border-radius: 8px;
+    margin: 0 4px;
+    padding: 8px 16px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd; /* Bleu primaire */
+    color: white;
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: #f8f9fa;
+    opacity: 0.5;
+}
+
+.pagination .flex.items-center.justify-between div:first-child, 
+.pagination p.text-sm.text-gray-700 {
+    display: none !important;
+}
+
+
 </style>
 
 <!-- RDVS -->

@@ -28,7 +28,7 @@ class AppointmentConfirmed extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -37,9 +37,15 @@ class AppointmentConfirmed extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('Confirmation de votre rendez-vous')
+            ->greeting('Bonjour ' . $this->appointment->patient->nom . ',')
+            ->line('Votre rendez-vous a été confirmé par le médecin.')
+            ->line('Détails :')
+            // Utilisation de Carbon pour un format de date propre (ex: 26 Avril 2026)
+            ->line('📅 Date : ' . \Carbon\Carbon::parse($this->appointment->date)->translatedFormat('d F Y'))
+            ->line('⏰ Heure : ' . $this->appointment->time)
+            ->action('Accéder à mon espace', url('/dashboard'))
+            ->line('Merci de votre confiance !');
     }
 
     /**

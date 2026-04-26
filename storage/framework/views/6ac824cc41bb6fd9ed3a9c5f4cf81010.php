@@ -1,6 +1,6 @@
 
 
- 
+
 
 <?php $__env->startSection('page-content'); ?>
 
@@ -220,4 +220,4 @@
 </style>
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.patient', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\LARAVEL\TODO\todo-list\resources\views/doctor/consultation.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.doctor', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\LARAVEL\TODO\todo-list\resources\views/doctor/consultation.blade.php ENDPATH**/ ?>

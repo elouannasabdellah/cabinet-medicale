@@ -12,10 +12,7 @@
     </div>
 
         <div class="d-flex align-items-center gap-3">
-        <button class="btn btn-light rounded-circle position-relative border-0 shadow-sm" style="width: 40px; height: 40px; background: #f8f9fa;">
-            <i class="bi bi-bell text-muted"></i>
-            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="margin-left: -8px; margin-top: 8px;"></span>
-        </button>
+        
 
         <div class="dropdown">
             <div class="rounded-circle bg-warning text-white d-flex align-items-center justify-content-center fw-bold shadow-sm" 

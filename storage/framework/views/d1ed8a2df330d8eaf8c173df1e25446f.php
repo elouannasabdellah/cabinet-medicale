@@ -2,6 +2,19 @@
 
 
 <?php $__env->startSection('page-content'); ?>
+<?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(session()->has('success')): ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Succès !',
+            text: "<?php echo e(session('success')); ?>",
+            timer: 3000,
+            showConfirmButton: false,
+            borderRadius: '15px'
+        });
+    </script>
+<?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 <div class="container py-4">
     <div class="card shadow-sm border-0 p-4">
         <h4 class="mb-4"><i class="fas fa-calendar-alt text-primary"></i> Prendre un rendez-vous</h4>
